@@ -3,7 +3,8 @@ import './App.scss';
 
 import goatData from '../helpers/data/goatData';
 
-import GoatCoral from '../components/GoatCoral/GoatCoral'
+import GoatCoral from '../components/GoatCoral/GoatCoral';
+import AvailableCount from '../components/AvailableCount/AvailableCount';
 
 class App extends React.Component {
   state = {
@@ -21,13 +22,20 @@ class App extends React.Component {
     this.setState({ goats });
   }
 
+  useGoat = (goatId) => {
+    goatData.useAGoat(goatId);
+    const goats = goatData.getGoats();
+    this.setState({ goats });
+  }
+
   render() {
     return (
         <div className="App">
-          <button className="btn btn-danger">Bootstrap Button</button>
-          <GoatCoral butts={this.state.goats} freeGoat={this.freeGoat} /> 
+          <h1>Underwater Goat Yoga</h1>
+          <AvailableCount goats={this.state.goats} />
+          <GoatCoral butts={this.state.goats} freeGoat={this.freeGoat} useGoat={this.useGoat} />
         </div>
-      );
+    );
   }
 }
 
